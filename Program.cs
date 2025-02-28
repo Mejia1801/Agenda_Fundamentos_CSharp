@@ -80,8 +80,8 @@ namespace Agenda
 
             while (intento < limite)
             {// inicio de llave while
-
-                Console.WriteLine($"Intento {intento + 1 } de {limite}" );
+                Console.WriteLine("----------Escribe la contraseña----------");
+                Console.WriteLine($"Intento {intento + 1} de {limite}");
 
                 try
                 {//inicio de try
@@ -90,8 +90,8 @@ namespace Agenda
 
                     if (contrasena == 123)
                     {
-                        Console.WriteLine("Correcto, Acceso permitido");
                         Console.Clear();
+                        Console.WriteLine("Correcto, Acceso permitido");
                         return (true);
 
                     }
@@ -103,12 +103,13 @@ namespace Agenda
                     }
 
                 }//fin de try
-                catch(Exception)
+                catch (Exception)
                 {//inicio de catch
+                    Console.Clear();
                     Console.WriteLine("Error: la contraseña debe ser numeros");
                 }//fin de catch
-                
-                //se ininicia fuera del if
+
+                //se ininicia dentro de while
                 intento++;
             }//fin de llave while
 
@@ -122,34 +123,53 @@ namespace Agenda
         {
             if (iConteo < limite)
             {
+
                 Console.WriteLine("Escriba el nombre de la persona");
                 nombre[iConteo] = Console.ReadLine();
 
-                while(true){
+                //while nos ayudar obligar que el campo se llene
+                while (nombre[iConteo] == "")
+                {
+                    Console.WriteLine("El campo nombre no puede estar vacio, Porfavor escribe un nombre");
+                    nombre[iConteo] = Console.ReadLine();
+                }//fin de while campo obligatorio
+
+                Console.WriteLine("Escriba el Numero de telefono");
+
+                while (true)
+                {// bucle de validacion con try catch
+
                     try
                     {
 
-                        Console.WriteLine("Escriba el Numero de telefono");
                         numero[iConteo] = Convert.ToInt32(Console.ReadLine());
-                        iConteo++;
-                        Console.Clear();
-                        break;
+
+                        if (numero[iConteo].ToString().Length == 8)
+                        {
+                            iConteo++;
+                            Console.Clear();
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("El número debe tener exactamente 8 dígitos. Inténtalo de nuevo.");
+                        }
+
 
                     }
                     catch (Exception)
                     {
-                        
-                        Console.WriteLine("Solo se puede guardar numeros. Intentalo de nuevo");
+
+                        Console.WriteLine("Solo se puede guardar numeros enteros. Intentalo de nuevo");
                     }
                 }
-               
-               
+
             }
             else
             {
                 Console.WriteLine("Ya no se puede ingresar mas datos");
             }
-            
+
         }
 
         //metodo mostrar datos
@@ -158,9 +178,9 @@ namespace Agenda
             Console.WriteLine("---------Datos---------");
             for (int i = 0; i < iConteo; i++)
             {
-                Console.WriteLine($"El numero de contacto es: {i+1} ");
+                Console.WriteLine($"El numero de contacto es: {i + 1} ");
                 Console.WriteLine($"El nombre es: {nombre[i]} ");
-                Console.WriteLine($"El número es: {numero[i] }"); // Solo el número correspondiente
+                Console.WriteLine($"El número es: {numero[i]}"); // Solo el número correspondiente
             }
 
             Console.WriteLine("Presiona una tecla para continuar");
